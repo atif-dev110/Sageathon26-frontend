@@ -18,7 +18,7 @@ const Predictions = ({ studentId }) => {
     const fetchPredictions = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`http://localhost:5000/api/predictions/${studentId}`);
+        const response = await fetch(`https://sageathon-api.onrender.com/api/predictions/${studentId}`);
         if (!response.ok) throw new Error("Prediction API failed");
         
         const data = await response.json();
@@ -53,7 +53,7 @@ const Predictions = ({ studentId }) => {
     setIsSending(true);
     
     try {
-      const response = await fetch(`http://localhost:5000/api/predictions/${studentId}/send-report`, {
+      const response = await fetch(`https://sageathon-api.onrender.com/api/predictions/${studentId}/send-report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

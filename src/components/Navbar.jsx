@@ -22,7 +22,7 @@ const Navbar = ({ userRole, studentId, onMenuClick }) => {
       const fetchStudentProfile = async () => {
         try {
           // IMPORTANT: Ensure this matches your live Render URL before pushing!
-          const response = await fetch(`http://localhost:5000/api/students/${studentId}/metrics`);
+          const response = await fetch(`https://sageathon-api.onrender.com/api/students/${studentId}/metrics`);
           
           if (!response.ok) throw new Error("Failed to fetch");
           

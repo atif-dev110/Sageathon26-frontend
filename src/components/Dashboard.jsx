@@ -56,7 +56,7 @@ const Dashboard = ({ studentId = "69f6a965466b9adf2bf693ca" }) => {
     const fetchLiveData = async () => {
       try {
         // Hitting your live Render backend
-        const response = await fetch(`http://localhost:5000/api/students/${studentId}/metrics`);
+        const response = await fetch(`https://sageathon-api.onrender.com/api/students/${studentId}/metrics`);
         if (!response.ok) throw new Error('Failed to fetch student data');
 
         const json = await response.json();

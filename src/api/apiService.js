@@ -1,6 +1,6 @@
 // src/api/apiService.js
 
-const BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:5000/api';
+const BASE_URL = import.meta.env.VITE_API_BASE || 'https://sageathon-api.onrender.com/api';
 
 export const fetchStudentDashboard = async (studentId) => {
   try {

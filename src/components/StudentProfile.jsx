@@ -9,7 +9,7 @@ const StudentProfile = ({ studentId = "69f6a965466b9adf2bf693ca" }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/students/${studentId}/metrics`);
+        const response = await fetch(`https://sageathon-api.onrender.com/api/students/${studentId}/metrics`);
         if (!response.ok) throw new Error('Failed to fetch student profile');
         
         const json = await response.json();

@@ -34,7 +34,7 @@ const AdminDashboard = () => {
   // Pulled fetch logic out so we can re-call it after adding new data!
   const fetchClassData = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/students`);
+      const response = await fetch(`https://sageathon-api.onrender.com/api/admin/students`);
       if (!response.ok) throw new Error("Network response was not ok");
       
       const data = await response.json();
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
 
       // Ensure this URL matches where your studentRoutes are mounted in server.js
       // Usually it is /api/students/:id/metrics
-      const response = await fetch(`http://localhost:5000/api/students/${selectedStudent.id}/metrics`, {
+      const response = await fetch(`https://sageathon-api.onrender.com/api/students/${selectedStudent.id}/metrics`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

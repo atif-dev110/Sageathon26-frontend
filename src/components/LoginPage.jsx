@@ -10,6 +10,16 @@ const LoginPage = ({ onLogin, onBack }) => {
   // 1. Added State for the Toggle
   const [activeRole, setActiveRole] = useState('student');
 
+  // Student data for auto-fill
+  const students = [
+    { "_id": "69f6a965466b9adf2bf693bc", "name": "Akshita Yadav" },
+    { "_id": "69f6a965466b9adf2bf693c1", "name": "Kaif Khan" },
+    { "_id": "69f6a965466b9adf2bf693bf", "name": "Garima Sharma" },
+    { "_id": "69f6a965466b9adf2bf693cd", "name": "Atif Raza" }
+  ];
+
+  const studentOptions = students.map(student => student._id);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -22,7 +32,7 @@ const LoginPage = ({ onLogin, onBack }) => {
     setTimeout(() => {
       setIsLoading(false);
       // 3. Pass BOTH the ID and the Role up to App.jsx!
-      onLogin(activeRole === 'faculty' ? 'dummy-faculty-id' : userId.trim(), activeRole); 
+    onLogin(activeRole === 'faculty' ? 'dummy-faculty-id' : userId.trim(), activeRole);
     }, 1500);
   };
 
@@ -82,13 +92,21 @@ const LoginPage = ({ onLogin, onBack }) => {
                   type="text" 
                   value={userId}
                   onChange={(e) => setUserId(e.target.value)}
-                  placeholder={activeRole === 'faculty' ? "admin@school.edu" : "name@school.com or ID"}
+                  placeholder={activeRole === 'faculty' ? "admin@school.edu" : "Enter student ID or select from list"}
+                  list={activeRole === 'student' ? "students" : undefined}
                   className="w-full bg-muted/50 border border-transparent focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-2xl pl-12 pr-4 py-3 outline-none transition-all"
                 />
+                {activeRole === 'student' && (
+                  <datalist id="students">
+                    {studentOptions.map((option, index) => (
+                      <option key={index} value={option} />
+                    ))}
+                  </datalist>
+                )}
               </div>
             </div>
 
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <div className="flex justify-between items-center px-1">
                 <label className="text-sm font-bold">Password</label>
                 <a href="#" className="text-xs text-primary font-bold hover:underline">Forgot?</a>
@@ -104,7 +122,7 @@ const LoginPage = ({ onLogin, onBack }) => {
                   className="w-full bg-muted/50 border border-transparent focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-2xl pl-12 pr-4 py-3 outline-none transition-all"
                 />
               </div>
-            </div>
+            </div> */}
 
             <button 
               disabled={isLoading}

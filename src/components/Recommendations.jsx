@@ -89,7 +89,7 @@ const Recommendations = ({ insights = [], focusSubject = "", isLoading = false }
 
       <div className="bg-gradient-to-br from-primary/10 to-purple-600/10 border border-primary/20 rounded-3xl p-8 mt-12 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-        <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center">
+        <div className="relative z-10 flex flex-col lg:flex-row gap-8 items-start lg:items-center">
           <div className="flex-1">
             <h3 className="text-2xl font-bold mb-4">Unlock Your Potential in {focusSubject}</h3>
             <p className="text-muted-foreground leading-relaxed">
@@ -105,7 +105,7 @@ const Recommendations = ({ insights = [], focusSubject = "", isLoading = false }
               </button>
             </div>
           </div>
-          <div className="w-full md:w-1/3 bg-card/50 backdrop-blur-sm border rounded-2xl p-6">
+          <div className="w-full lg:w-1/3 bg-card/50 backdrop-blur-sm border rounded-2xl p-6">
             <h4 className="font-bold text-sm mb-4 uppercase tracking-wider text-muted-foreground">Study Streak</h4>
             <div className="flex gap-2">
               {[1, 2, 3, 4, 5, 6, 7].map(d => (

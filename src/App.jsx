@@ -9,10 +9,12 @@ import AdminDashboard from './components/AdminDashboard';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import { ThemeProvider } from './context/ThemeContext';
+import Chatbot from './components/Chatbot';
 
 const App = () => {
   const [appView, setAppView] = useState('landing'); 
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // --- NEW: Master Auth States ---
   const [currentStudentId, setCurrentStudentId] = useState(null);
@@ -29,7 +31,7 @@ const App = () => {
     const generateLiveInsights = async () => {
       setIsInsightsLoading(true);
       try {
-        const response = await fetch(`https://sageathon-api.onrender.com/api/insights/${currentStudentId}/generate`, { 
+        const response = await fetch(`http://localhost:5000/api/insights/${currentStudentId}/generate`, { 
           method: 'POST' 
         });
         
@@ -118,13 +120,22 @@ const App = () => {
         
         {/* CONDITIONAL ROUTING: Only show Sidebar to Students */}
         {userRole === 'student' && (
-          <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+          <Sidebar 
+            activeTab={activeTab} 
+            setActiveTab={setActiveTab} 
+            isOpen={isMobileMenuOpen} 
+            setIsOpen={setIsMobileMenuOpen}
+          />
         )}
 
         <div className="flex-1 flex flex-col min-w-0">
-          <Navbar userRole={userRole} studentId={currentStudentId} />
+          <Navbar 
+            userRole={userRole} 
+            studentId={currentStudentId} 
+            onMenuClick={() => setIsMobileMenuOpen(true)}
+          />
 
-          <main className="flex-1 overflow-y-auto p-8 lg:p-12">
+          <main className="flex-1 overflow-y-auto p-4 sm:p-8 lg:p-12">
             <div className="max-w-7xl mx-auto">
               <Suspense fallback={
                 <div className="space-y-4 animate-pulse">
@@ -143,9 +154,13 @@ const App = () => {
           </main>
         </div>
         
+        {userRole === 'student' && currentStudentId && (
+          <Chatbot studentId={currentStudentId} />
+        )}
+
         <button 
           onClick={handleLogout}
-          className="absolute bottom-6 right-6 px-4 py-2 z-50 bg-destructive/10 text-destructive border border-destructive/20 font-bold rounded-lg hover:bg-destructive hover:text-white transition-colors shadow-lg"
+          className="fixed md:absolute bottom-6 right-6 px-4 py-2 z-50 bg-destructive/10 text-destructive border border-destructive/20 font-bold rounded-lg hover:bg-destructive hover:text-white transition-colors shadow-lg"
         >
           Logout
         </button>

@@ -34,7 +34,7 @@ const AdminDashboard = () => {
   // Pulled fetch logic out so we can re-call it after adding new data!
   const fetchClassData = useCallback(async () => {
     try {
-      const response = await fetch(`https://sageathon-api.onrender.com/api/admin/students`);
+      const response = await fetch(`http://localhost:5000/api/admin/students`);
       if (!response.ok) throw new Error("Network response was not ok");
       
       const data = await response.json();
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
 
       // Ensure this URL matches where your studentRoutes are mounted in server.js
       // Usually it is /api/students/:id/metrics
-      const response = await fetch(`https://sageathon-api.onrender.com/api/students/${selectedStudent.id}/metrics`, {
+      const response = await fetch(`http://localhost:5000/api/students/${selectedStudent.id}/metrics`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -112,7 +112,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="space-y-8 animate-fade-in relative">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Teacher Console</h2>
           <p className="text-muted-foreground">Monitor and manage student performance across classes.</p>
@@ -128,8 +128,8 @@ const AdminDashboard = () => {
       </div>
 
       <div className="bg-card border rounded-2xl shadow-sm overflow-hidden">
-        <div className="p-4 border-b flex flex-col md:flex-row justify-between gap-4 items-center bg-muted/20">
-          <div className="flex items-center gap-2 bg-card border rounded-lg px-3 py-1.5 w-full md:w-64 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+        <div className="p-4 border-b flex flex-col lg:flex-row justify-between gap-4 items-start lg:items-center bg-muted/20">
+          <div className="flex items-center gap-2 bg-card border rounded-lg px-3 py-1.5 w-full lg:w-64 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
             <Search size={16} className="text-muted-foreground" />
             <input 
               type="text" 
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
           
           <div className="flex items-center gap-2">
             <Filter size={16} className="text-muted-foreground" />
-            <div className="flex bg-muted p-1 rounded-lg">
+            <div className="flex flex-wrap bg-muted p-1 rounded-lg">
               {['All', 'Low', 'Medium', 'High'].map((tag) => (
                 <button 
                   key={tag}
@@ -246,7 +246,7 @@ const AdminDashboard = () => {
       {/* --- THE DATA ENTRY MODAL --- */}
       {isModalOpen && selectedStudent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-card border shadow-2xl rounded-3xl w-full max-w-md overflow-hidden relative">
+          <div className="bg-card border shadow-2xl rounded-3xl w-[95%] sm:w-full max-w-md overflow-hidden relative">
             
             {/* Modal Header */}
             <div className="px-6 py-4 border-b flex justify-between items-center bg-muted/20">

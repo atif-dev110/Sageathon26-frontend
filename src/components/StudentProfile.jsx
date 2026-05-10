@@ -9,7 +9,7 @@ const StudentProfile = ({ studentId = "69f6a965466b9adf2bf693ca" }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`https://sageathon-api.onrender.com/api/students/${studentId}/metrics`);
+        const response = await fetch(`http://localhost:5000/api/students/${studentId}/metrics`);
         if (!response.ok) throw new Error('Failed to fetch student profile');
         
         const json = await response.json();
@@ -78,7 +78,7 @@ const StudentProfile = ({ studentId = "69f6a965466b9adf2bf693ca" }) => {
       <div className="bg-card rounded-2xl border shadow-sm overflow-hidden">
         <div className="h-32 bg-gradient-to-r from-blue-600 to-purple-600"></div>
         <div className="px-8 pb-8">
-          <div className="flex flex-col md:flex-row gap-6 -mt-12 items-end">
+          <div className="flex flex-col sm:flex-row gap-6 -mt-12 items-center sm:items-end text-center sm:text-left">
             <img 
               src={dynamicAvatar} 
               alt="Profile" 
@@ -119,7 +119,7 @@ const StudentProfile = ({ studentId = "69f6a965466b9adf2bf693ca" }) => {
 
             <div className="md:col-span-2 space-y-6">
               <h3 className="font-bold text-lg border-b pb-2">Current Subject-wise Scores</h3>
-              <div className="overflow-hidden rounded-xl border">
+              <div className="overflow-x-auto rounded-xl border">
                 <table className="w-full text-left">
                   <thead className="bg-muted/50">
                     <tr>

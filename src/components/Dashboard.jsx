@@ -56,7 +56,7 @@ const Dashboard = ({ studentId = "69f6a965466b9adf2bf693ca" }) => {
     const fetchLiveData = async () => {
       try {
         // Hitting your live Render backend
-        const response = await fetch(`https://sageathon-api.onrender.com/api/students/${studentId}/metrics`);
+        const response = await fetch(`http://localhost:5000/api/students/${studentId}/metrics`);
         if (!response.ok) throw new Error('Failed to fetch student data');
 
         const json = await response.json();
@@ -113,8 +113,8 @@ const Dashboard = ({ studentId = "69f6a965466b9adf2bf693ca" }) => {
   }) : [];
 
   return (
-    <div className="space-y-8 animate-fade-in p-6">
-      <div className="flex justify-between items-end">
+    <div className="space-y-8 animate-fade-in p-2 sm:p-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Student Dashboard</h2>
           <p className="text-muted-foreground ">Welcome back, <strong className='text-l'>{studentProfile.name}</strong>. Here's your performance summary.</p>        </div>
@@ -132,7 +132,7 @@ const Dashboard = ({ studentId = "69f6a965466b9adf2bf693ca" }) => {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           label="Current Risk Score"
           value={`${currentRiskScore} / 100`}

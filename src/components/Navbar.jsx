@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Bell, Search } from 'lucide-react';
+import { Sun, Moon, Bell, Search, Menu } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 // NOTE: We added userRole and studentId as props!
-const Navbar = ({ userRole, studentId }) => {
+const Navbar = ({ userRole, studentId, onMenuClick }) => {
   const { isDarkMode, toggleTheme } = useTheme();
   
   const [profileName, setProfileName] = useState("Loading...");
@@ -22,7 +22,7 @@ const Navbar = ({ userRole, studentId }) => {
       const fetchStudentProfile = async () => {
         try {
           // IMPORTANT: Ensure this matches your live Render URL before pushing!
-          const response = await fetch(`https://sageathon-api.onrender.com/api/students/${studentId}/metrics`);
+          const response = await fetch(`http://localhost:5000/api/students/${studentId}/metrics`);
           
           if (!response.ok) throw new Error("Failed to fetch");
           
@@ -49,9 +49,17 @@ const Navbar = ({ userRole, studentId }) => {
   const dynamicAvatarUrl = `https://api.dicebear.com/7.x/avataaars/svg?seed=${profileName.replace(' ', '')}&backgroundColor=c0aede,b6e3f4,d1d4f9,ffd5dc,ffdfbf`;
 
   return (
-    <header className="h-16 border-b bg-card/50 backdrop-blur-md sticky top-0 z-50 flex items-center justify-between px-8">
-      <div className="flex items-center gap-4 flex-1">
-        <div className="relative w-96">
+    <header className="h-16 border-b bg-card/50 backdrop-blur-md sticky top-0 z-40 flex items-center justify-between px-4 sm:px-8">
+      <div className="flex items-center gap-2 sm:gap-4 flex-1">
+        {userRole === 'student' && (
+          <button 
+            onClick={onMenuClick}
+            className="p-2 -ml-2 rounded-lg hover:bg-muted transition-colors md:hidden text-muted-foreground"
+          >
+            <Menu size={24} />
+          </button>
+        )}
+        <div className="relative w-full max-w-[150px] sm:max-w-xs">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
           <input 
             type="text" 
